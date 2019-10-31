@@ -1,11 +1,20 @@
+import math
+
+
+def prime(n):
+    if n < 1:
+        return False
+    for i in range(2, int(math.sqrt(n) + 1)):
+        if n % i == 0:
+            return False
+    return True
+
+
 # List Node
 class Node:
     def __init__(self, value):
         self.value = value
         self.next = None
-
-    def returnValue(self):
-        return self.value
 
 
 class CircularLinkedList:
@@ -31,10 +40,40 @@ class CircularLinkedList:
         string = ""
         curr = self.head
         while curr.next is not self.head:
-            string = string + str(curr.returnValue()) + " "
+            string = string + str(curr.value) + " "
             curr = curr.next
-        string = string + str(curr.returnValue())
+        string = string + str(curr.value)
         return string
+
+
+
+    def task(self):
+        if self.head is None:
+            raise IOError()
+        curr = self.head
+        try:
+            # увеличиваем на 3
+            while curr.next is not self.head:
+                curr.value += 3
+                curr = curr.next
+            curr.value += 3
+
+            # убираем простые
+            old = self.head
+            curr = self.head.next
+
+            while old.next is not self.head:
+                if prime(curr.value) is True:
+                    old.next = curr.next
+                old = old.next
+                curr = old.next
+
+        except IOError:
+            raise IOError()
+        except Exception:
+            raise Exception("Неверные входные параметры")
+
+
 
 
 
