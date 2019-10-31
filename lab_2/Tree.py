@@ -1,13 +1,16 @@
+from math import fabs
+
 class Node:
     def __init__(self, value=None):
         self.value = value
         self.left = None
-        self.rigth = None
+        self.right = None
 
 
 class Tree:
     def __init__(self):
         self.root = None
+        self.result = ""
 
     def insert(self, value):
         if self.root is None:
@@ -22,29 +25,31 @@ class Tree:
             else:
                 self._insert(value, cur_node.left)
         else:
-            if cur_node.rigth is None:
-                cur_node.rigth = Node(value)
+            if cur_node.right is None:
+                cur_node.right = Node(value)
             else:
-                self._insert(value, cur_node.rigth)
+                self._insert(value, cur_node.right)
 
     def print_tree(self):
+        self.result = ""
         if self.root is not None:
             self._print_tree(self.root)
+        return self.result
 
     def _print_tree(self, cur_node):
         if cur_node is not None:
             self._print_tree(cur_node.left)
-            print(str(cur_node.value))
-            self._print_tree(cur_node.rigth)
+            self.result += ((str(cur_node.value))+" ")
+            self._print_tree(cur_node.right)
 
+    def task(self):
+        if self.root is not None:
+            self._task(self.root)
 
-T = Tree()
-T.insert(1)
-T.insert(1)
-T.insert(1)
-T.insert(4)
-T.insert(5)
-
-T.print_tree()
+    def _task(self, cur_node):
+        if cur_node is not None:
+            self._task(cur_node.left)
+            cur_node.value = int(fabs(cur_node.value))
+            self._task(cur_node.right)
 
 
