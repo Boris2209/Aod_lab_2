@@ -68,6 +68,12 @@ class CircularLinkedList:
                 old = old.next
                 curr = old.next
 
+            if (prime(curr.value) and (self.head.next is not self.head)) is True:
+                old.next = curr.next
+                self.head = curr.next
+            elif prime(curr.value) is True:
+                self.head = None
+
         except IOError:
             raise IOError()
         except Exception:
